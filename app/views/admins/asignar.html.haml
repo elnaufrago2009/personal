@@ -1,0 +1,33 @@
+.container
+	.page-header
+		%h1
+			%b Asignar a:
+			= @admin.email
+	.row
+		.col-sm-6			
+			%h3 
+				%b Usuarios por asignar:
+			%table.table	
+				%tr
+					%th Email
+					%th Acciones
+				- @users.each do |user|	
+					%tr
+						%td= user.email
+						%td= link_to "Add ->", add_admin_admins_path(:user_admin_id => params[:user_admin_id], :user_normal_id => user.id), class: 'btn btn-primary'
+		.col-sm-6
+			%h3
+				%b Asignados:
+			%table.table
+				%tr
+					%th Email		
+					%th Acciones		
+				- @asignados.each do |user|
+					%tr
+						%td= user.user_normal.email
+						%td= link_to "Quitar", quitar_user_admins_path(:admin_id => user.id, :user_id => user.user_normal.id, :user_admin_id => user.user_admin_id), class: 'btn btn-primary'
+
+
+			
+	
+			

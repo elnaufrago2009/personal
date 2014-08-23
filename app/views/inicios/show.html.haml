@@ -1,0 +1,15 @@
+#region-inicios.container
+  .region
+    .region-title
+      %h1= page_title!('inicio')
+
+  .region
+    %p
+      %b Nombre:
+      = @inicio.nombre
+
+  .region
+    - if current_admin
+      .admin-controls
+        = link_to 'Editar', edit_inicio_path(@inicio), class: 'btn btn-success'
+    = link_to 'Regresar', inicios_path, class: 'btn btn-warning'

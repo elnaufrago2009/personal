@@ -1,0 +1,11 @@
+.container	
+	.page-header
+		%h1
+			Admin:
+			%small= @admin.email
+	%table.table
+		%tr
+			%th Email
+		- @users.each do |user|
+			%tr
+				%td= user.user_normal.email

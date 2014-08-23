@@ -1,0 +1,15 @@
+#region-assign_roles.container
+  .region
+    .region-title
+      %h1= page_title!('assign_role')
+
+  .region
+    %p
+      %b Nombre:
+      = @assign_role.nombre
+
+  .region
+    - if current_admin
+      .admin-controls
+        = link_to 'Editar', edit_assign_role_path(@assign_role), class: 'btn btn-success'
+    = link_to 'Regresar', assign_roles_path, class: 'btn btn-warning'

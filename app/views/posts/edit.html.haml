@@ -1,0 +1,18 @@
+- page_title!('Editando post')
+
+#region-posts.container
+
+  .region
+    .region-title
+      %h1
+        Editando
+        %b
+          post
+
+  .region
+    = render 'form'
+
+  .region
+    .admin-controls
+      = link_to 'Ver', @post, class: 'btn btn-info'
+      = link_to 'Regresar', 'javascript:history.back(-1)', class: 'btn btn-warning'

@@ -1,0 +1,22 @@
+= form_for @admin, :html => { class: 'form-horizontal', role: 'form' } do |f|
+  - if @admin.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@admin.errors.count, "error")}"
+      %ul
+        - @admin.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :nombre, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :nombre, class: 'form-control'
+  .form-group
+    = f.label :user_normal_id, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :user_normal_id, class: 'form-control'
+  .form-group
+    = f.label :user_admin_id, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :user_admin_id, class: 'form-control'
+  .actions
+    = f.submit 'Guardar', class: 'btn btn-default'

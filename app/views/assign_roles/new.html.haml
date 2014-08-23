@@ -1,0 +1,17 @@
+- page_title!('Creando assign_role')
+
+#region-assign_roles.container
+
+  .region
+    .region-title
+      %h1
+        Creando
+        %b
+          assign_role
+
+  .region
+    = render 'form'
+
+  .region
+    .admin-controls
+      = link_to 'Regresar', 'javascript:history.back(-1)', class: 'btn btn-warning'

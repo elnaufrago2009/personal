@@ -1,0 +1,21 @@
+#region-admins.container
+  .region
+    .region-title
+      %h1= page_title!('admin')
+
+  .region
+    %p
+      %b Nombre:
+      = @admin.nombre
+    %p
+      %b User normal:
+      = @admin.user_normal_id
+    %p
+      %b User admin:
+      = @admin.user_admin_id
+
+  .region
+    - if current_admin
+      .admin-controls
+        = link_to 'Editar', edit_admin_path(@admin), class: 'btn btn-success'
+    = link_to 'Regresar', admins_path, class: 'btn btn-warning'

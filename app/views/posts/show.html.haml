@@ -1,0 +1,18 @@
+#region-posts.container
+  .region
+    .region-title
+      %h1= page_title!('post')
+
+  .region
+    %p
+      %b Nombre:
+      = @post.nombre
+    %p
+      %b Apellidos:
+      = @post.apellidos
+
+  .region
+
+  .admin-controls
+    = link_to 'Editar', edit_post_path(@post), class: 'btn btn-success'
+    = link_to 'Regresar', posts_path, class: 'btn btn-warning'
