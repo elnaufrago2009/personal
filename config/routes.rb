@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :assign_roles
+  resources :assign_roles do
+    collection {
+      get :asignar
+      get :quitar
+    }
+  end
 
   resources :inicios
 

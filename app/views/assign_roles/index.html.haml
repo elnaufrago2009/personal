@@ -21,17 +21,19 @@
 					- if role.name == 'superadmin'							
 						- superadmin = superadmin + 1
 				- if normal > 0
-					%td= link_to "Normal", "", class: 'btn btn-primary'
+					%td= link_to "Normal", quitar_assign_roles_path(:role_name => 'normal', :user_id => user.id), class: 'btn btn-primary'
 				- else
-					%td= link_to "Normal", "", class: 'btn btn-default'
+					%td= link_to "Normal", asignar_assign_roles_path(:role_name => 'normal', :user_id => user.id), class: 'btn btn-default'
+
 				- if admin > 0
-					%td= link_to "Admin", "", class: 'btn btn-primary'
+					%td= link_to "Admin", quitar_assign_roles_path(:role_name => 'admin', :user_id => user.id), class: 'btn btn-primary'
 				- else
-					%td= link_to "Admin", "", class: 'btn btn-default'
+					%td= link_to "Admin", asignar_assign_roles_path(:role_name => 'admin', :user_id => user.id), class: 'btn btn-default'
+
 				- if superadmin > 0
-					%td= link_to "Superadmin", "", class: 'btn btn-primary'
+					%td= link_to "Superadmin", quitar_assign_roles_path(:role_name => 'superadmin', :user_id => user.id), class: 'btn btn-primary'
 				- else
-					%td= link_to "Superadmin", "", class: 'btn btn-default'
+					%td= link_to "Superadmin", asignar_assign_roles_path(:role_name => 'superadmin', :user_id => user.id), class: 'btn btn-default'
 						
 
 							
