@@ -1,0 +1,21 @@
+.container
+	.page-header
+		%h1
+			%b Usuario :
+			= @user.first_name
+			%small= @user.second_name
+
+	.row 
+		.col-sm-6
+			%h3 Turnos Disponibles
+			%hr
+			%table.table
+				- @turnos.each  do |turno|
+					%tr
+						%td
+							= turno.title
+							= turno.hora.strftime("%I:%M %p")							
+
+		.col-sm-6
+			%h3 Turnos Asignados
+			%hr

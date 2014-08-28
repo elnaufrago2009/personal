@@ -1,0 +1,17 @@
+#region-user_turnos.container
+  .region
+    .region-title
+      %h1= page_title!('user_turno')
+
+  .region
+    %p
+      %b User:
+      = @user_turno.user_id
+    %p
+      %b Turno:
+      = @user_turno.turno_id
+
+  .region
+    .admin-controls
+      = link_to 'Editar', edit_user_turno_path(@user_turno), class: 'btn btn-success'
+      = link_to 'Regresar', user_turnos_path, class: 'btn btn-warning'

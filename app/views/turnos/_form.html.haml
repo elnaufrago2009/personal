@@ -1,0 +1,30 @@
+= form_for @turno, :html => { class: 'form-horizontal', role: 'form' } do |f|
+  - if @turno.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@turno.errors.count, "error")}"
+      %ul
+        - @turno.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :title, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :hora, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.time_select :hora, class: 'form-control'
+  .form-group
+    = f.label :tolerance, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.time_select :tolerance, class: 'form-control'
+  .form-group
+    = f.label :type, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :type, [['Par',0], ['Impar',1]],{}, class: 'form-control'
+  .form-group
+    = f.label :orange, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :orange, Turno.all.collect{|x| [x.title, x.id]}, {:include_blank => 'Seleccione'}, class: 'form-control'
+  .actions
+    = f.submit 'Guardar', class: 'btn btn-default'

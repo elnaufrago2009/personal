@@ -1,0 +1,26 @@
+#region-center_works.container
+
+  .region
+    .region-title
+      %h1= page_title!('center_works')
+
+    .region
+      .admin-control
+        = link_to 'Crear Center work', new_center_work_path, class: 'btn btn-primary'
+
+      .table-responsive
+        %table.table
+          %tr
+            %th Name
+            %th Deparment
+            %th
+            %th
+            %th
+
+          - @center_works.each do |center_work|
+            %tr
+              %td= center_work.name
+              %td= center_work.deparment_id
+              %td= link_to 'Ver', center_work, class: 'btn btn-info'
+              %td= link_to 'Editar', edit_center_work_path(center_work), class: 'btn btn-success'
+              %td= link_to 'Eliminar', center_work, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'

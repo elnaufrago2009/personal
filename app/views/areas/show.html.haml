@@ -1,0 +1,17 @@
+#region-areas.container
+  .region
+    .region-title
+      %h1= page_title!('area')
+
+  .region
+    %p
+      %b Name:
+      = @area.name
+    %p
+      %b Center work:
+      = @area.center_work_id
+
+  .region
+    .admin-controls
+      = link_to 'Editar', edit_area_path(@area), class: 'btn btn-success'
+      = link_to 'Regresar', areas_path, class: 'btn btn-warning'

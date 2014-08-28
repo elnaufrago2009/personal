@@ -1,0 +1,17 @@
+.container
+  .page-header
+    %h1 Usuarios
+  %table.table
+    %tr
+      %th Id
+      %th Nombre
+      %th Email
+      %th Acciones
+    - @users.each do |user|
+      %tr
+        %td= user.id
+        %td
+          = user.first_name
+          = user.second_name
+        %td= user.email
+        %td= link_to "Asignar Turnos >>", asignar_turnos_user_turnos_path(:user_id => user.id), class: 'btn btn-primary'

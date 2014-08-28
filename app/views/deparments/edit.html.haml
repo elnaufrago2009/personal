@@ -1,0 +1,18 @@
+- page_title!('Editando deparment')
+
+#region-deparments.container
+
+  .region
+    .region-title
+      %h1
+        Editando
+        %b
+          deparment
+
+  .region
+    = render 'form'
+
+  .region
+    .admin-controls
+      = link_to 'Ver', @deparment, class: 'btn btn-info'
+      = link_to 'Regresar', 'javascript:history.back(-1)', class: 'btn btn-warning'

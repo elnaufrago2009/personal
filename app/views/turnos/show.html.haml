@@ -1,0 +1,26 @@
+#region-turnos.container
+  .region
+    .region-title
+      %h1= page_title!('turno')
+
+  .region
+    %p
+      %b Title:
+      = @turno.title
+    %p
+      %b Hora:
+      = @turno.hora
+    %p
+      %b Tolerance:
+      = @turno.tolerance
+    %p
+      %b Type:
+      = @turno.type
+    %p
+      %b Orange:
+      = @turno.orange
+
+  .region
+    .admin-controls
+      = link_to 'Editar', edit_turno_path(@turno), class: 'btn btn-success'
+      = link_to 'Regresar', turnos_path, class: 'btn btn-warning'

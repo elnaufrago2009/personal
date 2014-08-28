@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  resources :user_turnos do
+    collection {
+      get :asignar_turnos
+    }
+  end
+
+  resources :turnos
+
+  resources :areas
+
+  resources :center_works
+
+  resources :deparments
+
   resources :assign_roles do
     collection {
       get :asignar

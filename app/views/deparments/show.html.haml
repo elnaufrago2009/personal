@@ -1,0 +1,14 @@
+#region-deparments.container
+  .region
+    .region-title
+      %h1= page_title!('deparment')
+
+  .region
+    %p
+      %b Name:
+      = @deparment.name
+
+  .region
+    .admin-controls
+      = link_to 'Editar', edit_deparment_path(@deparment), class: 'btn btn-success'
+      = link_to 'Regresar', deparments_path, class: 'btn btn-warning'

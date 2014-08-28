@@ -15,7 +15,10 @@ class AssignRolesController < InheritedResources::Base
 	end
 
 	def asignar
-		
+		user = User.find(params[:user_id])
+		#@user.roles.find(params[:role][:id])
+		user.roles << Role.find_by_name(params[:role_name])
+		redirect_to assign_roles_path
 	end
 
 	def quitar
