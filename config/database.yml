@@ -6,11 +6,12 @@
 #
 
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  username: root
-  password: moises
+  username: postgres
+  password: sa
+  #password: moises
   host: localhost
 
 
@@ -49,5 +50,3 @@ test:
 production:
   <<: *default
   database: personal_production
-  username: moises
-  password: <%= ENV['DEMO_DATABASE_PASSWORD'] %>

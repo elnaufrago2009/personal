@@ -5,17 +5,37 @@
 			= @user.first_name
 			%small= @user.second_name
 
-	.row 
+	.row
 		.col-sm-6
 			%h3 Turnos Disponibles
 			%hr
 			%table.table
 				- @turnos.each  do |turno|
-					%tr
-						%td
-							= turno.title
-							= turno.hora.strftime("%I:%M %p")							
-
+					- cont_turno = 0
+					- @user_turnos.each do |user_turno|
+						- if user_turno.turno_id == turno.id
+							- cont_turno = cont_turno + 1
+					- if cont_turno == 0							
+						%tr
+							%td							
+								= turno.title
+								\:
+								= turno.hora_entrada.strftime("%I:%M %p")
+								\-
+								= turno.hora_salida.strftime("%I:%M %p")
+							%td
+								= link_to "Agregar ->", agregar_user_turnos_path(:user_id => @user.id, :turno_id => turno.id), class: 'btn btn-primary'
 		.col-sm-6
 			%h3 Turnos Asignados
 			%hr
+			%table.table
+				- @user_turnos.each do |user_turno|
+					%tr
+						%td
+							= user_turno.turno.title
+							\:
+							= user_turno.turno.hora_entrada.strftime("%I:%M %p")
+							\-
+							= user_turno.turno.hora_salida.strftime("%I:%M %p")
+						%td
+							= link_to "Remove", desasignar_user_turnos_path(:user_turno_id => user_turno.id), class: 'btn btn-primary'

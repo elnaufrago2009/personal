@@ -3,22 +3,26 @@
 		%h1 Usuarios
 	%table.table
 		%tr
-			%th Email			
+			%th Nombres
+			%th Email
 			%th Usuario
 			%th Admin
 			%th Superadmin
 		- @users.each do |user|
 			%tr
+				%td
+					= user.first_name
+					= user.second_name
 				%td= user.email	
 				- normal = 0
 				- admin = 0
 				- superadmin = 0
 				- user.roles.each do |role|
-					- if role.name == 'normal' 							
+					- if role.name == 'normal'
 						- normal = normal + 1
 					- if role.name == 'admin'							
-						- admin = admin + 1						
-					- if role.name == 'superadmin'							
+						- admin = admin + 1
+					- if role.name == 'superadmin'
 						- superadmin = superadmin + 1
 				- if normal > 0
 					%td= link_to "Normal", quitar_assign_roles_path(:role_name => 'normal', :user_id => user.id), class: 'btn btn-primary'

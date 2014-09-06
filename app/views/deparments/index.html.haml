@@ -1,24 +1,23 @@
 #region-deparments.container
-
   .region
     .region-title
-      %h1= page_title!('deparments')
-
+      %h1= page_title!('Departamentos')
     .region
       .admin-control
-        = link_to 'Crear Deparment', new_deparment_path, class: 'btn btn-primary'
-
-      .table-responsive
-        %table.table
-          %tr
-            %th Name
-            %th
-            %th
-            %th
-
-          - @deparments.each do |deparment|
+        = link_to 'Crear Departamento', new_deparment_path, class: 'btn btn-primary'
+    %br
+    .row
+      .col-sm-5
+        .table-responsive
+          %table.table
             %tr
-              %td= deparment.name
-              %td= link_to 'Ver', deparment, class: 'btn btn-info'
-              %td= link_to 'Editar', edit_deparment_path(deparment), class: 'btn btn-success'
-              %td= link_to 'Eliminar', deparment, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'
+              %th Name
+              %th Acciones           
+
+            - @deparments.each do |deparment|
+              %tr
+                %td= deparment.name
+                %td
+                  = link_to 'Ver', deparment, class: 'btn btn-info'
+                  = link_to 'Editar', edit_deparment_path(deparment), class: 'btn btn-success'
+                  = link_to 'Eliminar', deparment, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'

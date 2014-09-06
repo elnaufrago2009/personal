@@ -1,0 +1,30 @@
+= form_for @registro, :html => { class: 'form-horizontal', role: 'form' } do |f|
+  - if @registro.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@registro.errors.count, "error")}"
+      %ul
+        - @registro.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :fecha_hora, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.datetime_select :fecha_hora, class: 'form-control'
+  .form-group
+    = f.label :register_turnos, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :register_turnos, class: 'form-control'
+  .form-group
+    = f.label :tarde, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :tarde, class: 'form-control'
+  .form-group
+    = f.label :option, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :option, class: 'form-control'
+  .form-group
+    = f.label :turno_id, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :turno_id, class: 'form-control'
+  .actions
+    = f.submit 'Guardar', class: 'btn btn-default'

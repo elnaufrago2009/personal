@@ -8,23 +8,21 @@
 
   .form-group
     = f.label :title, class: 'col-sm-2 control-label'
-    .col-sm-10
+    .col-sm-3
       = f.text_field :title, class: 'form-control'
   .form-group
-    = f.label :hora, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.time_select :hora, class: 'form-control'
+    = f.label :hora_entrada, class: 'col-sm-2 control-label'
+    .col-sm-3
+      = f.time_select :hora_entrada, class: 'form-control'
+  .form-group
+    = f.label :hora_salida, class: 'col-sm-2 control-label'
+    .col-sm-3
+      = f.time_select :hora_salida, class: 'form-control'
   .form-group
     = f.label :tolerance, class: 'col-sm-2 control-label'
-    .col-sm-10
+    .col-sm-3
       = f.time_select :tolerance, class: 'form-control'
   .form-group
-    = f.label :type, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.select :type, [['Par',0], ['Impar',1]],{}, class: 'form-control'
-  .form-group
-    = f.label :orange, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.select :orange, Turno.all.collect{|x| [x.title, x.id]}, {:include_blank => 'Seleccione'}, class: 'form-control'
-  .actions
-    = f.submit 'Guardar', class: 'btn btn-default'
+    .col-sm-2
+    .col-sm-4  
+      = f.submit 'Guardar', class: 'btn btn-default'

@@ -1,0 +1,26 @@
+#region-registros.container
+  .region
+    .region-title
+      %h1= page_title!('registro')
+
+  .region
+    %p
+      %b Fecha hora:
+      = @registro.fecha_hora
+    %p
+      %b Register turnos:
+      = @registro.register_turnos
+    %p
+      %b Tarde:
+      = @registro.tarde
+    %p
+      %b Option:
+      = @registro.option
+    %p
+      %b Turno:
+      = @registro.turno_id
+
+  .region
+    .admin-controls
+      = link_to 'Editar', edit_registro_path(@registro), class: 'btn btn-success'
+      = link_to 'Regresar', registros_path, class: 'btn btn-warning'

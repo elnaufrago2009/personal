@@ -1,19 +1,11 @@
 .authform
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
-    %h3 Registro de Usuario
+    %h3 
+      %span.glyphicon.glyphicon-user
+      Registro de Usuario
+    %hr
     = devise_error_messages!
-    .form-group
-      = f.label :nombre
-      = f.text_field :first_name, :autofocus => true, class: 'form-control'
-    .form-group
-      = f.label :apellido
-      = f.text_field :second_name, :autofocus => true, class: 'form-control'
-    .form-group
-      = f.label :mac_pc
-      = f.text_field :mac, :autofocus => true, class: 'form-control'
-    .form-group
-      = f.label :area
-      = f.select :area_id, Area.all.collect{|x| [x.name, x.id]}, {:include_blank => 'Seleccione'}, :autofocusss => true, class: 'form-control'
+
     .form-group
       = f.label :email
       = f.email_field :email, :autofocus => true, class: 'form-control'
@@ -23,4 +15,14 @@
     .form-group
       = f.label :password_confirmation
       = f.password_field :password_confirmation, class: 'form-control'
+    .form-group
+      = f.label :nombre
+      = f.text_field :first_name, :autofocus => true, class: 'form-control'
+    .form-group
+      = f.label :apellido
+      = f.text_field :second_name, :autofocus => true, class: 'form-control'
+    .form-group
+      = f.label :area
+      = f.select :area_id, Area.all.collect{|x| [x.name, x.id]}, {:include_blank => 'Seleccione'}, :autofocusss => true, class: 'form-control'
+    
     = f.submit 'Registrar', class: 'button right'

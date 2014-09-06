@@ -2,21 +2,19 @@
 
   .region
     .region-title
-      %h1= page_title!('admins')
-
-    .region
-      .admin-control
-        = link_to 'Crear Admin', new_admin_path, class: 'btn btn-primary'
-      %br
-      %br
-      %table.table
-        %tr
-          %th Email
-          %th Acciones        
-        - @roles[0].users.each do |user|
+      %h1= page_title!('Admin')
+    %br
+    %br
+    .row
+      .col-sm-6      
+        %table.table
           %tr
-            %td= user.email
-            %td              
-              = link_to "Usuarios", asignar_admins_path(:user_admin_id => user.id), class: 'btn btn-primary'
+            %th Email
+            %th Acciones        
+          - @roles[0].users.each do |user|
+            %tr
+              %td= user.email
+              %td              
+                = link_to "Usuarios", asignar_admins_path(:user_admin_id => user.id), class: 'btn btn-primary'
 
 

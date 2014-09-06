@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827163735) do
+ActiveRecord::Schema.define(version: 20140905165652) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "abouts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "admins", force: true do |t|
     t.string   "nombre"
@@ -60,6 +68,23 @@ ActiveRecord::Schema.define(version: 20140827163735) do
     t.datetime "updated_at"
   end
 
+  create_table "registros", force: true do |t|
+    t.integer  "register_turnos"
+    t.integer  "tarde"
+    t.integer  "turno_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.datetime "hora_entrada"
+    t.datetime "hora_salida"
+    t.integer  "option_entrada"
+    t.integer  "option_salida"
+    t.text     "entrada_user_mensaje"
+    t.text     "entrada_admin_mensaje"
+    t.text     "salida_user_mensaje"
+    t.text     "salida_admin_mensaje"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -73,12 +98,11 @@ ActiveRecord::Schema.define(version: 20140827163735) do
 
   create_table "turnos", force: true do |t|
     t.string   "title"
-    t.time     "hora"
     t.time     "tolerance"
-    t.integer  "type"
-    t.integer  "orange"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.time     "hora_entrada"
+    t.time     "hora_salida"
   end
 
   create_table "user_turnos", force: true do |t|

@@ -1,24 +1,21 @@
 #region-turnos.container
   .region
-    .region-title
-      %h1= page_title!('turno')
+    .page-header
+      %h1= page_title!('Turno')
 
   .region
     %p
       %b Title:
       = @turno.title
     %p
-      %b Hora:
-      = @turno.hora
+      %b Hora Entrada:
+      = @turno.hora_entrada.strftime("%I:%M %p")
+    %p
+      %b Hora Salida:
+      = @turno.hora_salida.strftime("%I:%M %p")
     %p
       %b Tolerance:
-      = @turno.tolerance
-    %p
-      %b Type:
-      = @turno.type
-    %p
-      %b Orange:
-      = @turno.orange
+      = @turno.tolerance.strftime("%I:%M %p")
 
   .region
     .admin-controls

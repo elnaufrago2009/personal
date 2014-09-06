@@ -1,0 +1,12 @@
+#region-abouts.container
+  .region
+    .region-title
+      %h1= page_title!('about')
+
+  .region
+
+  .region
+    - if current_admin
+      .admin-controls
+        = link_to 'Editar', edit_about_path(@about), class: 'btn btn-success'
+    = link_to 'Regresar', abouts_path, class: 'btn btn-warning'

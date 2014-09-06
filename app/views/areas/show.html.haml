@@ -1,15 +1,15 @@
 #region-areas.container
   .region
-    .region-title
-      %h1= page_title!('area')
+    .page-header
+      %h1= page_title!('Area')
 
   .region
     %p
-      %b Name:
+      %b Nombre:
       = @area.name
     %p
       %b Center work:
-      = @area.center_work_id
+      = @area.center_work.name
 
   .region
     .admin-controls

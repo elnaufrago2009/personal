@@ -1,26 +1,28 @@
 #region-areas.container
 
   .region
-    .region-title
-      %h1= page_title!('areas')
+    .page-header
+      %h1= page_title!('Areas')
 
     .region
       .admin-control
         = link_to 'Crear Area', new_area_path, class: 'btn btn-primary'
 
-      .table-responsive
-        %table.table
-          %tr
-            %th Name
-            %th Center work
-            %th
-            %th
-            %th
-
-          - @areas.each do |area|
+    %br
+    .row
+      .col-sm-7
+        .table-responsive
+          %table.table
             %tr
-              %td= area.name
-              %td= area.center_work_id
-              %td= link_to 'Ver', area, class: 'btn btn-info'
-              %td= link_to 'Editar', edit_area_path(area), class: 'btn btn-success'
-              %td= link_to 'Eliminar', area, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'
+              %th Nombre
+              %th Local              
+              %th Acciones
+
+            - @areas.each do |area|
+              %tr
+                %td= area.name
+                %td= area.center_work.name
+                %td
+                  = link_to 'Ver', area, class: 'btn btn-info'
+                  = link_to 'Editar', edit_area_path(area), class: 'btn btn-success'
+                  = link_to 'Eliminar', area, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'

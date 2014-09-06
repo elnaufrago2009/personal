@@ -1,32 +1,29 @@
 #region-turnos.container
 
   .region
-    .region-title
-      %h1= page_title!('turnos')
+    .page-header
+      %h1= page_title!('Turnos')
 
     .region
       .admin-control
         = link_to 'Crear Turno', new_turno_path, class: 'btn btn-primary'
-
+    %br
       .table-responsive
-        %table.table
+        %table.table.table-condensed
           %tr
             %th Title
-            %th Hora
-            %th Tolerance
-            %th Type
-            %th Orange
-            %th
-            %th
-            %th
+            %th Hora Entrada
+            %th Hora Salida
+            %th Tolerance            
+            %th Acciones            
 
           - @turnos.each do |turno|
             %tr
               %td= turno.title
-              %td= turno.hora
-              %td= turno.tolerance
-              %td= turno.type
-              %td= turno.orange
-              %td= link_to 'Ver', turno, class: 'btn btn-info'
-              %td= link_to 'Editar', edit_turno_path(turno), class: 'btn btn-success'
-              %td= link_to 'Eliminar', turno, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'
+              %td= turno.hora_entrada.strftime("%I:%M %p")
+              %td= turno.hora_salida.strftime("%I:%M %p")
+              %td= turno.tolerance.strftime("%I:%M %p")              
+              %td
+                = link_to 'Ver', turno, class: 'btn btn-info'
+                = link_to 'Editar', edit_turno_path(turno), class: 'btn btn-success'
+                = link_to 'Eliminar', turno, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'

@@ -1,8 +1,24 @@
-%li= link_to "Departamentos", deparments_path
-%li= link_to "Centro de Trabajo", center_works_path
-%li= link_to "Areas", areas_path
-%li= link_to "Turno", turnos_path
-%li= link_to "UserTurnos", user_turnos_path
+- if can? :show, Deparment
+	%li.dropdown
+		= link_to "Locales <span class='caret'></span>".html_safe, "#", :"data-toggle" => "dropdown"
+		%ul.dropdown-menu{:role => 'menu'}
+			%li= link_to "Departms", deparments_path
+			%li= link_to "Areas", areas_path		
+			%li= link_to "Locales", center_works_path
 
-%li= link_to "Admins", admins_path
-%li= link_to "Asignar Roles", assign_roles_path
+- if can? :show, Inicio
+	%li= link_to "Tu Horario", inicios_path
+-if can? :index, Turno
+	%li= link_to "Turnos", turnos_path
+- if can? :show, UserTurno	
+	%li= link_to "UserTurnos", user_turnos_path
+- if can? :usuarios, Registro
+	%li= link_to "Usuarios", usuarios_registros_path
+- if can? :index, Registro
+	%li= link_to "Registros", registros_path
+- if can? :show, Admin
+	%li= link_to "Admins", admins_path
+- if can? :todos, Registro
+	%li= link_to "T. Registros", todos_registros_path
+- if can? :show, AssignRole
+	%li= link_to "Roles", assign_roles_path	

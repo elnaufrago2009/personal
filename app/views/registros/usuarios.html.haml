@@ -1,0 +1,23 @@
+.container
+	.page-header
+		%h1 
+			Administrador:
+			%small
+				= current_user.first_name
+				= current_user.second_name
+
+	.registros
+		.row
+			.col-sm-7
+				%table.table
+					%tr
+						%th Usuarios
+						%th Email
+					- @users.each do |user|
+						%tr
+							%td
+								= user.user_normal.first_name
+								,
+								= user.user_normal.second_name
+							%td
+								= user.user_normal.email

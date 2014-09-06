@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fecha_hora: 2014-09-01 11:19:17
+  register_turnos: 1
+  tarde: 1
+  option: 1
+  turno_id: 1
+
+two:
+  fecha_hora: 2014-09-01 11:19:17
+  register_turnos: 1
+  tarde: 1
+  option: 1
+  turno_id: 1

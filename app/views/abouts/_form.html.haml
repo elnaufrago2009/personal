@@ -1,0 +1,10 @@
+= form_for @about, :html => { class: 'form-horizontal', role: 'form' } do |f|
+  - if @about.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@about.errors.count, "error")}"
+      %ul
+        - @about.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Guardar', class: 'btn btn-default'
