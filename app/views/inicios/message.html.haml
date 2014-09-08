@@ -1,9 +1,11 @@
 .container 
 	.page-header
-		%h1 Mensajes
+		%h2			
+			Datos Referenciales
+			%span.glyphicon.glyphicon-pencil
 	.row
 		.col-sm-8
-			%table.table.table-bordered
+			%table.table.table-bordered{:style => 'background-color: #fff;'}
 				%tr
 					%th Turno						
 					%th Fecha
@@ -32,8 +34,10 @@
 							= @registro.hora_salida.strftime("%I:%M %p")
 
 					
-
-			%p
+			%h3				
+				Mensajes
+				%span.glyphicon.glyphicon-comment
+			%p{:style => 'background-color: #fff;'}
 				- if params[:paridad] == '0'
 					= raw(@registro.entrada_user_mensaje)
 				- else
@@ -43,7 +47,10 @@
 				= text_area_tag "comentario",nil, :rows => 3, :cols => 50, :class => 'form-control'
 				= hidden_field_tag "paridad", nil, :value => params[:paridad]
 				= hidden_field_tag "registro_id",nil, :value => params[:registro_id]
-				%br
-				= submit_tag "enviar", :class => 'btn btn-primary'
+				%br				
+				= button_tag(type: 'submit', class: "btn btn-primary") do					
+					%span.glyphicon.glyphicon-sort
+					Enviar
+
 				= link_to '<span class="glyphicon glyphicon-arrow-left"></span> Regresar'.html_safe, 'javascript:history.back(-1)', class: 'btn btn-warning'
 

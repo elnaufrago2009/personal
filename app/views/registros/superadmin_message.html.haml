@@ -1,8 +1,41 @@
 .container
 	.page-header
-		%h1 Mensajes
+		%h2 
+			Mensajes
+			%span.glyphicon.glyphicon-pencil
 	.row
 		.col-sm-8
+			%table.table.table-bordered{:style => 'background-color: #fff;'}
+				%tr
+					%th Turno
+					%th Fecha
+					%th Hora Referencia
+					%th Hora Marcada
+				%tr
+					%td
+						- if params[:paridad] == '0'
+							= @registro.turno.title
+							Entrada
+						- else
+							= @registro-turno.title
+							Salida
+					%td
+						= @registro.hora_entrada.strftime("%d %b. %Y")
+					%td
+						- if params[:paridad] == '0'
+							= @registro.turno.hora_entrada.strftime("%I:%M %p")
+						- else
+							= @registro.turno.hora_salida.strftime("%I:%M %p")
+						
+					%td
+						- if params[:paridad] == '0'
+							= @registro.hora_entrada.strftime("%I:%M %p")
+						- else
+							= @registro.hora_salida.strftime("%I:%M %p")
+
+			%h3				
+				Mensajes
+				%span.glyphicon.glyphicon-comment
 			%p
 				- if params[:paridad] == '0'
 					= raw(@registro.entrada_user_mensaje)
@@ -14,5 +47,7 @@
 				= hidden_field_tag "paridad", nil, :value => params[:paridad]
 				= hidden_field_tag "registro_id",nil, :value => params[:registro_id]
 				%br
-				= submit_tag "enviar", :class => 'btn btn-primary'
+				= button_tag(type: 'submit', class: "btn btn-primary") do					
+					%span.glyphicon.glyphicon-sort
+					Enviar
 				= link_to '<span class="glyphicon glyphicon-arrow-left"></span> Regresar'.html_safe, 'javascript:history.back(-1)', class: 'btn btn-warning'

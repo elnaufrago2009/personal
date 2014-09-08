@@ -64,10 +64,10 @@ class RegistrosController < InheritedResources::Base
 	def add_message
 		registro = Registro.find(params[:registro_id])
 		if params[:paridad] == '0'
-			comentario = "#{registro.entrada_user_mensaje} <strong>#{current_user.first_name} (admin): </strong> #{params[:comentario]} <br>"
+			comentario = "#{registro.entrada_user_mensaje} <kbd><span class='glyphicon glyphicon-user'></span><strong> #{current_user.first_name} #{current_user.second_name} (admin)</strong></kbd> : #{params[:comentario]} <br/>"
 			registro.update(:entrada_user_mensaje => comentario)
 		else
-			comentario = "#{registro.salida_user_mensaje} <strong>#{current_user.first_name} (admin) : </strong> #{params[:comentario]} <br>"
+			comentario = "#{registro.salida_user_mensaje} <kbd><span class='glyphicon glyphicon-user'></span><strong> #{current_user.first_name} #{current_user.second_name} (admin)</strong></kbd> : #{params[:comentario]} <br/>"
 			registro.update(:salida_user_mensaje => comentario)
 		end
 		redirect_to message_registros_path(:paridad => params[:paridad], :registro_id => params[:registro_id])
@@ -80,10 +80,10 @@ class RegistrosController < InheritedResources::Base
 	def add_superadmin_message
 		registro = Registro.find(params[:registro_id])
 		if params[:paridad] == '0'
-			comentario = "#{registro.entrada_user_mensaje} <strong>#{current_user.first_name} (SUPERADMIN): </strong> #{params[:comentario]} <br>"
+			comentario = "#{registro.entrada_user_mensaje} <kbd><span class='glyphicon glyphicon-user'></span> <strong>#{current_user.first_name} #{current_user.second_name} (SUPERADMIN)</strong></kbd> : #{params[:comentario]} <br>"
 			registro.update(:entrada_user_mensaje => comentario)
 		else
-			comentario = "#{registro.salida_user_mensaje} <strong>#{current_user.first_name} (SUPERADMIN) : </strong> #{params[:comentario]} <br>"
+			comentario = "#{registro.salida_user_mensaje} <kbd><span class='glyphicon glyphicon-user'></span> <strong>#{current_user.second_name} (SUPERADMIN)</strong></kbd> : #{params[:comentario]} <br>"
 			registro.update(:salida_user_mensaje => comentario)
 		end
 		redirect_to superadmin_message_registros_path(:paridad => params[:paridad], :registro_id => params[:registro_id])
