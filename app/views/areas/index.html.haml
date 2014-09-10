@@ -2,7 +2,7 @@
 
   .region
     .page-header
-      %h1= page_title!('Areas')
+      %h1 Areas
 
     .region
       .admin-control
@@ -12,17 +12,20 @@
     .row
       .col-sm-7
         .table-responsive
-          %table.table
-            %tr
+          %table.table.table-condensed.table-hover.table-bordered
+            %tr.well
+              %th #id
               %th Nombre
               %th Local              
               %th Acciones
-
+            - i = @areas.count
             - @areas.each do |area|
               %tr
+                %td= i
                 %td= area.name
                 %td= area.center_work.name
                 %td
                   = link_to 'Ver', area, class: 'btn btn-info'
                   = link_to 'Editar', edit_area_path(area), class: 'btn btn-success'
                   = link_to 'Eliminar', area, :method => :delete, :data => { :confirm => '¿Estás Seguro?' }, class: 'btn btn-danger'
+              - i = i - 1

@@ -1,0 +1,57 @@
+.container 
+	%ol.breadcrumb
+		%li= link_to "<span class='glyphicon glyphicon-home'></span> Tus Horarios".html_safe, inicios_path
+		%li.active 
+			%span.glyphicon.glyphicon-share-alt
+			Horario Area
+	.row
+		.col-sm-10
+			- if @pase == 1
+				- @todos.each do |registros|
+					- if registros.count > 0	
+						%h1 
+							%b= registros[0].turno.try(:title)		
+							= Date.today.strftime("%d %b. %Y")
+							%small
+								= registros[0].turno.try(:hora_entrada).strftime("%I:%M %p") + ' -'
+								= registros[0].turno.try(:hora_salida).strftime("%I:%M %p")
+						%br
+						%table.table.table-condensed.table-hover.table-bordered
+							%tr.well
+								%th.centered Id
+								%th.col-sm-5 User
+								%th Turno Entrada
+								%th Turno Salida
+							- i = registros.count
+							- registros.each do |registro|
+								%tr
+									%td= i
+									%td
+										= registro.user.first_name[0,15].capitalize + ','							
+										= registro.user.second_name[0,15].capitalize
+									%td
+										%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+											= registro.turno.hora_entrada.strftime("%I:%M %p")
+										%button{:type => 'button', :class => 'btn btn-primary', :disabled => 'disabled'}	
+											= registro.hora_entrada.strftime("%I:%M %p")
+										
+									
+									- if registro.register_turnos == 1
+										%td
+											%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+												= registro.turno.hora_salida.strftime("%I:%M %p")
+											%button{:type => 'button', :class => 'btn btn-success', :disabled => 'disabled'}									
+												= registro.hora_salida.strftime("%I:%M %p")
+																				
+									- else
+										%td
+											%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+												= registro.turno.hora_salida.strftime("%I:%M %p")
+											%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+												\-:- AM/PM
+											
+										
+								- i = i - 1
+						%hr
+			- else
+				%p Sin registros.!	

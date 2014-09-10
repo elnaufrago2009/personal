@@ -13,12 +13,17 @@ Rails.application.routes.draw do
       get :option_entrada
       get :option_salida
       get :todos
+      post :todos
       get :message
       post :add_message
       get :superadmin_message
       post :add_superadmin_message
       get :option_salida_todos
       get :option_entrada_todos
+      get :user_day
+      get :option_entrada_user
+      get :option_salida_user
+      get :user_day_registro
     }
   end
 
@@ -48,6 +53,7 @@ Rails.application.routes.draw do
       get :registrar_paridad
       get :message
       post :envio_message
+      get :horario_area
     }
   end
 

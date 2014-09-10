@@ -1,34 +1,75 @@
 class IniciosController < InheritedResources::Base
 	load_and_authorize_resource
 
-	def index	
-
-		# turnos que tiene el usuario
-		@user_turnos = UserTurno.where("user_id = ?", current_user.id)
-		#cantidad de turnos
-		@user_turnos_count = @user_turnos.count*2
-
-		@registros_user = Registro.where('user_id = ? AND DATE(hora_entrada) = DATE(?)', current_user.id, Date.today)
-		
-		
+	def index
 		########################### Numero de fila activa ##########################################################
 		@turnos = UserTurno.where("user_id = ?", current_user.id)
 		@cantidad_turnos = @turnos.count * 2
-
-		registros = Registro.where('user_id = ? AND DATE(hora_entrada) = DATE(?)', current_user.id, Date.today)		
-		@cantidad_registros = registros.count
-
-		if @cantidad_registros == 0
-			@fila = 1
+		@max = @turnos.count
+		@fields_turnos = ""
+		if @max == 0
+			@pase = 0
 		else
-			@registros_ultimo = registros.last
-			if @registros_ultimo.register_turnos == 0
-				@fila = @cantidad_registros*2
+			i = 1
+			@turnos.each do |turno|
+				if i == @max
+					@fields_turnos << "turno_id = #{turno.turno.id}"
+				else
+					@fields_turnos << "turno_id = #{turno.turno.id} OR "
+				end
+				i = i + 1
+			end
+			@registros = Registro.where("(#{@fields_turnos}) AND user_id = ? AND DATE(hora_entrada) = DATE(?)", current_user.id, Date.today)		
+			@cantidad_registros = @registros.count
+
+			if @cantidad_registros == 0
+				@fila = 1
 			else
-				@fila = @cantidad_registros*2 + 1
+				@registros_ultimo = @registros.last
+				if @registros_ultimo.register_turnos == 0
+					@fila = @cantidad_registros*2
+				else
+					@fila = @cantidad_registros*2 + 1
+				end
 			end
 		end
 
+		
+
+	end
+
+	def horario_area
+		########################################  horarios de area ########################################################
+		
+		@admin_asociado = Admin.where("user_normal_id = ?", current_user.id).first
+		users = Admin.where("user_admin_id = ?",@admin_asociado[:user_admin_id])		
+		@todos = []
+		fields_user = ""
+		max = users.count
+		if max == 0
+			@pase = 0
+		else
+			i = 1
+			users.each do |user|
+				if i == max
+					fields_user << "user_id = #{user.user_normal_id}"
+				else
+					fields_user << "user_id = #{user.user_normal_id} OR "				
+				end
+				i = i + 1
+			end	
+			@turnos = UserTurno.where("#{fields_user}")
+			@users_uniq = []
+			@turnos.each do |turno|		
+				@users_uniq << turno.turno_id				
+			end
+			@users_uniq = @users_uniq.uniq
+			k = 1
+			@users_uniq.each do |user_uniq|
+				@todos << Registro.where("(#{fields_user}) AND DATE(hora_entrada) = DATE(?) AND turno_id = ?",Date.today,user_uniq).order('id Desc')
+			end
+			@pase = 1
+		end
 	end
 
 

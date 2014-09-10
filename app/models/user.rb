@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :message => 'No puede estar Vacio.'           
   validates_presence_of :second_name, :message => 'No puede estar Vacio.'
+  validates_presence_of :area_id, :message => 'No puede estar Vacio.'
 end

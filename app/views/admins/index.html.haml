@@ -2,19 +2,31 @@
 
   .region
     .region-title
-      %h1= page_title!('Admin')
+      %h1 
+        Administradores de Area
+        %small asignacion de usuarios
     %br
     %br
     .row
-      .col-sm-6      
-        %table.table
-          %tr
+      .col-sm-10
+        %table.table.table-condensed.table-bordered.table-hover
+          %tr.well
+            %th Id
+            %th Noombre
             %th Email
+            %th Area
             %th Acciones        
+          - i = 1
           - @roles[0].users.each do |user|
             %tr
+              %td= i
+              %td
+                = user.first_name + ','
+                = user.second_name
               %td= user.email
+              %td= user.area.try(:name)
               %td              
                 = link_to "Usuarios", asignar_admins_path(:user_admin_id => user.id), class: 'btn btn-primary'
+            - i = i + 1
 
 

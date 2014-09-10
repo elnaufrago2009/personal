@@ -1,23 +1,33 @@
-.container
-	.page-header
-		%h1 
-			Administrador:
-			%small
-				= current_user.first_name
-				= current_user.second_name
-
+.container	
+	%ol.breadcrumb
+		%li= link_to "<span class='glyphicon glyphicon-home'></span> Tus Horarios".html_safe, inicios_path
+		%li.active 
+			%span.glyphicon.glyphicon-share-alt
+			Usuarios
+	%h1 
+		Administrador:
+		%small
+			= current_user.first_name
+			= current_user.second_name
+	%br
 	.registros
 		.row
-			.col-sm-7
-				%table.table
-					%tr
+			.col-sm-10
+				%table.table.table-condensed.table-bordered-table-hover.table-bordered
+					%tr.well
+						%th #id
 						%th Usuarios
+						%th Area
 						%th Email
+					- i = @users.count
 					- @users.each do |user|
 						%tr
+							%td= i
 							%td
-								= user.user_normal.first_name
-								,
-								= user.user_normal.second_name
+								= user.user_normal.first_name.capitalize + ','							
+								= user.user_normal.second_name.capitalize
+							%td
+								= user.user_normal.area.try(:name)
 							%td
 								= user.user_normal.email
+						- i = i - 1

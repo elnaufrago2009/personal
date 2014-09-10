@@ -16,6 +16,8 @@
 
 - if can? :show, Inicio
 	%li= link_to "Tu Horario", inicios_path
+- if can? :show, Inicio
+	%li= link_to "Horario Area", horario_area_inicios_path
 - if can? :usuarios, Registro
 	%li= link_to "Usuarios", usuarios_registros_path
 - if can? :index, Registro

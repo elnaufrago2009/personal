@@ -1,4 +1,10 @@
 .container
+	%ol.breadcrumb
+		%li= link_to "<span class='glyphicon glyphicon-home'></span> Tus Horarios".html_safe, inicios_path
+		%li= link_to "<span class='glyphicon glyphicon-share-alt'></span> Registros".html_safe, registros_path
+		%li.active 
+			%span.glyphicon.glyphicon-share-alt
+			Usuario
 	.page-header
 		%h2 
 			Mensajes	

@@ -1,89 +1,95 @@
-.container 
-	.page-header
-		%h1 
-			Todos los Registros
-			%small= Date.today.strftime("%d %b. %Y")	
-	.region
-		- if @pase == 1
-			%table.table.table-condensed.table-hover
-				%tr
-					%th User
-					%th Turnos
-					%th Hora
-					%th Option
-				- @registros.each do |registro|
-					- if registro.register_turnos == 0
+.container
+	%ol.breadcrumb
+		%li= link_to "<span class='glyphicon glyphicon-home'></span> Tus Horarios".html_safe, inicios_path
+		%li.active 
+			%span.glyphicon.glyphicon-share-alt
+			Todos los Registros	
+	.row 
+		.col-sm-6
+		.col-sm-6.text-right
+			= form_tag("/registros/todos", method: "get", class: 'form-inline') do
+				.input-group
+					- if !params[:q].nil?
+						- q = params[:q]
+					- else
+						- q = ''
+					= text_field_tag :q, nil,  class: 'form-control', placeholder: 'Nombre', value: "#{q}"
+					.input-group-btn
+						%button.btn.btn-default{type: "submit"}
+							%span.glyphicon.glyphicon-search  
+	- if @pase == 1
+		- @todos.each do |registros|
+			- if registros.count > 0	
+				%h1 
+					%b= registros[0].turno.try(:title)		
+					= Date.today.strftime("%d %b. %Y")
+					%small
+						= registros[0].turno.try(:hora_entrada).strftime("%I:%M %p") + ' -'
+						= registros[0].turno.try(:hora_salida).strftime("%I:%M %p")
+				%br
+				%table.table.table-condensed.table-hover.table-bordered
+					%tr.well
+						%th Id
+						%th User
+						%th Turno Entrada
+						%th Option Entrada
+						%th Turno Salida
+						%th Option Salida
+					- i = registros.count
+					- registros.each do |registro|
 						%tr
+							%td= i
 							%td
-								= registro.user.first_name
-								,
-								= registro.user.second_name
-							%td
-								= registro.turno.title
-								Entrada
+								= link_to "#{registro.user.first_name[0,10].capitalize}, #{registro.user.second_name[0,7].capitalize}", user_day_registros_path(:user_id => registro.user_id), :title => "#{registro.user.first_name}, #{registro.user.second_name} - #{registro.user.area_id}"
+
 							%td
 								%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
 									= registro.turno.hora_entrada.strftime("%I:%M %p")
-								%button{:type => 'button', :class => 'btn btn-primary '}
-									%span.glyphicon.glyphicon-dashboard
+								%button{:type => 'button', :class => 'btn btn-primary'}
 									= registro.hora_entrada.strftime("%I:%M %p")
 								- if registro[:entrada_user_mensaje].blank? 
 									= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 0), class: 'btn btn-default'
 								- else
-									= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 0), class: 'btn btn-success'
+									= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 0), class: 'btn btn-primary'
 							%td
 								.btn-toolbar
 									%span.btn-group
-										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_entrada==1 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_entrada==2 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_entrada==3 ? 'active' : '' }"
-					- elsif registro.register_turnos == 1
-						%tr
-							%td
-								= registro.user.first_name
-								,
-								= registro.user.second_name
-							%td
-								= registro.turno.title
-								Entrada
-							%td 
-								%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-									= registro.turno.hora_entrada.strftime("%I:%M %p")
-								%button{:type => 'button', :class => 'btn btn-primary'}
-									%span.glyphicon.glyphicon-dashboard
-									= registro.hora_entrada.strftime("%I:%M %p")
-								- if registro[:entrada_user_mensaje].blank? 
-									= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 0), class: 'btn btn-default'
-								- else
-									= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 0), class: 'btn btn-success'
-							%td
-								.btn-toolbar
-									%span.btn-group
-										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_entrada==1 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_entrada==2 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_entrada==3 ? 'active' : '' }"
-						%tr
-							%td
-								= registro.user.first_name
-								= registro.user.second_name
-							%td
-								= registro.turno.title
-								Salida
-							%td 
-								%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-									= registro.turno.hora_salida.strftime("%I:%M %p")
-								%button{:type => 'button', :class => 'btn btn-primary'}
-									%span.glyphicon.glyphicon-dashboard
-									= registro.hora_salida.strftime("%I:%M %p")
-								- if registro[:salida_user_mensaje].blank? 
-									= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 1), class: 'btn btn-default'
-								- else
-									= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 1), class: 'btn btn-success'
-							%td
-								.btn-toolbar
-									%span.btn-group
-										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_salida_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_salida==1 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_salida_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_salida==2 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_salida_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_salida==3 ? 'active' : '' }"
-		- else
-			%p Sin registros.!
+										= link_to "Tarde", option_entrada_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn #{registro.option_entrada==1 ? 'btn-primary active' : 'btn-default' }"
+										= link_to "Pasar", option_entrada_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn #{registro.option_entrada==2 ? 'btn-primary active' : 'btn-default' }"
+										= link_to "Anular", option_entrada_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn #{registro.option_entrada==3 ? 'btn-primary active' : 'btn-default' }"
+							- if registro.register_turnos == 1
+								%td
+									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+										= registro.turno.hora_salida.strftime("%I:%M %p")
+									%button{:type => 'button', :class => 'btn btn-success'}									
+										= registro.hora_salida.strftime("%I:%M %p")
+									- if registro[:salida_user_mensaje].blank? 
+										= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 1), class: 'btn btn-default'
+									- else
+										= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, superadmin_message_registros_path(:registro_id => registro.id, :paridad => 1), class: 'btn btn-success'
+								%td
+									.btn-toolbar
+										%span.btn-group
+											= link_to "Tarde", option_salida_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn #{registro.option_salida==1 ? 'btn-success active' : 'btn-default' }"
+											= link_to "Pasar", option_salida_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn #{registro.option_salida==2 ? 'btn-success active' : 'btn-default' }"
+											= link_to "Anular", option_salida_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn #{registro.option_salida==3 ? 'btn-success active' : 'btn-default' }"
+							- else
+								%td
+									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+										= registro.turno.hora_salida.strftime("%I:%M %p")
+									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+										\-:- AM/PM
+									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+										%span.glyphicon.glyphicon-envelope								
+
+								%td
+									.btn-toolbar
+										%span.btn-group
+											= link_to "Tarde", option_salida_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-default disabled"
+											= link_to "Pasar", option_salida_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-default disabled"
+											= link_to "Anular", option_salida_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-default disabled"
+						- i = i - 1				
+				%hr
+	- else
+		%p Sin registros.!
+				

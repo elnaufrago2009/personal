@@ -1,17 +1,23 @@
 .container
   .page-header
-    %h1 Usuarios
-  %table.table
-    %tr
+    %h1 
+      Asignacion de Turnos 
+      %small a los usuarios
+  %table.table.table-condensed.table-hover.table-bordered
+    %tr.well
       %th Id
       %th Nombre
+      %th Area
       %th Email
       %th Acciones
+    - i = @users.count
     - @users.each do |user|
       %tr
-        %td= user.id
+        %td= i
         %td
-          = user.first_name
-          = user.second_name
+          = user.first_name.capitalize + ','
+          = user.second_name.capitalize
+        %td= user.area.try(:name)
         %td= user.email
         %td= link_to "Asignar Turnos >>", asignar_turnos_user_turnos_path(:user_id => user.id), class: 'btn btn-primary'
+      - i = i - 1 

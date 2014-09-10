@@ -1,66 +1,100 @@
 .container
-	.page-header
-		%h2
-			%span.glyphicon.glyphicon-calendar
-			Horarios  
+	%ol.breadcrumb		
+		%li.active 
+			%span.glyphicon.glyphicon-home
+			Tus Horarios
+	%h2
+		Horario
+		%small
+			= Date.today.strftime("%d %b. %Y")	 
+	%br	
+
 	- i = 1
-	.row 
-		.col-sm-6
-			%table.table.table-condensed{:style => 'background-color: #fff;'}
-				- @turnos.each do |turno|			
-					%tr
-						%td
-							= turno.turno.title
-							Entrada
-						%td.text-right
-							%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-								= turno.turno.hora_entrada.strftime("%I:%M %p")
-							- if @fila == i
-								= link_to " #{Time.now.strftime('%I:%M %p')}", registrar_turno_inicios_path(:user_id => current_user.id, :paridad => 0, :turno_id => turno.turno.id), class: 'btn btn-primary'
+	.row
+		.col-sm-12
+			- if @pase == 0
+				%p No hay Turnos..!
+			- else
+				%table.table.table-condensed.table-hover.table-bordered
+					%tr.well
+						%th #id
+						%th Turno
+						%th Hora Entrada
+						%th Opcion Entrada
+						%th Hora Salida
+						%th Opcion Salida
+					- @turnos.each do |turno|
+						%tr
+							%td= turno.id
+							%td= turno.turno.title
+							%td
 								%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-									%span.glyphicon.glyphicon-envelope
-							- else
-								- if i < @fila
-									- actual = Registro.where("user_id = ? AND turno_id = ? AND DATE(hora_entrada) = DATE(?)",turno.user.id, turno.turno.id, Date.today)
-									%button{:type => 'button', :class => 'btn btn-primary', :disabled => 'disabled'}
-										= actual[0][:hora_entrada].strftime('%I:%M %p')
-									- if actual[0][:entrada_user_mensaje].blank?
-										= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 0), class: 'btn btn-default'
-									- else
-										= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 0), class: 'btn btn-success'
-								- else
-									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-										= "-:- AM/PM"
+									= turno.turno.hora_entrada.strftime("%I:%M %p")
+								- if @fila == i
+									= link_to " #{Time.now.strftime('%I:%M %p')}", registrar_turno_inicios_path(:user_id => current_user.id, :paridad => 0, :turno_id => turno.turno.id), class: 'btn btn-primary'
 									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
 										%span.glyphicon.glyphicon-envelope
-							- i = i + 1
-					%tr 
-						%td
-							= turno.turno.title									
-							Salida
-						%td.text-right
-							%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-								= turno.turno.hora_salida.strftime("%I:%M %p")
-							- if @fila == i
-								- registrado = Registro.where('user_id = ? AND turno_id = ? AND DATE(hora_entrada) = DATE(?)', turno.user.id, turno.turno.id, Date.today)
-								= link_to "#{Time.now.strftime('%I:%M %p')}", registrar_paridad_inicios_path(:registro_id => registrado[0].try(:id)), class: 'btn btn-primary'
-								%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-									%span.glyphicon.glyphicon-envelope
-							- else	
-								- if i < @fila
-									- actual = Registro.where("user_id = ? AND turno_id = ? AND DATE(hora_entrada) = DATE(?)",turno.user.id, turno.turno.id, Date.today)
-									%button{:type => 'button', :class => 'btn btn-primary', :disabled => 'disabled'}
-										= actual[0][:hora_salida].strftime('%I:%M %p')
-									- if actual[0][:salida_user_mensaje].blank?
-										= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 1), class: 'btn btn-default'
-									- else
-										= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 1), class: 'btn btn-success'
 								- else
-									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
-										= "-:- AM/PM"
+									- if i < @fila
+										- actual = Registro.where("user_id = ? AND turno_id = ? AND DATE(hora_entrada) = DATE(?)",turno.user.id, turno.turno.id, Date.today)
+										%button{:type => 'button', :class => 'btn btn-primary', :disabled => 'disabled'}
+											= actual[0][:hora_entrada].strftime('%I:%M %p')
+										- if actual[0][:entrada_user_mensaje].blank?
+											= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 0), class: 'btn btn-default'
+										- else
+											= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 0), class: 'btn btn-success'
+									- else
+										%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+											= "-:- AM/PM"
+										%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+											%span.glyphicon.glyphicon-envelope
+								
+							%td
+								.btn-toolbar
+									%span.btn-group
+										- if i < @fila
+											= link_to "Tarde", "", class: "btn #{actual[0][:option_entrada] == 1 ? 'btn-primary' : 'btn-default' } disabled"
+											= link_to "Pasar", "", class: "btn #{actual[0][:option_entrada] == 2 ? 'btn-primary' : 'btn-default' } disabled"
+											= link_to "Anular", "", class: "btn #{actual[0][:option_entrada] == 3 ? 'btn-primary' : 'btn-default' } disabled"
+										- else										
+											= link_to "Tarde", "", class: "btn btn-default disabled"
+											= link_to "Pasar", "", class: "btn btn-default disabled"
+											= link_to "Anular", "", class: "btn btn-default disabled"
+								- i = i + 1
+							%td
+								%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+									= turno.turno.hora_salida.strftime("%I:%M %p")
+								- if @fila == i
+									- registrado = Registro.where('user_id = ? AND turno_id = ? AND DATE(hora_entrada) = DATE(?)', turno.user.id, turno.turno.id, Date.today)
+									= link_to "#{Time.now.strftime('%I:%M %p')}", registrar_paridad_inicios_path(:registro_id => registrado[0].try(:id)), class: 'btn btn-success'
 									%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
 										%span.glyphicon.glyphicon-envelope
-							- i = i + 1
+								- else	
+									- if i < @fila
+										- actual = Registro.where("user_id = ? AND turno_id = ? AND DATE(hora_entrada) = DATE(?)",turno.user.id, turno.turno.id, Date.today)
+										%button{:type => 'button', :class => 'btn btn-success', :disabled => 'disabled'}
+											= actual[0][:hora_salida].strftime('%I:%M %p')
+										- if actual[0][:salida_user_mensaje].blank?
+											= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 1), class: 'btn btn-default'
+										- else
+											= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 1), class: 'btn btn-success'
+									- else
+										%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+											= "-:- AM/PM"
+										%button{:type => 'button', :class => 'btn btn-default', :disabled => 'disabled'}
+											%span.glyphicon.glyphicon-envelope
+							%td		
+								.btn-toolbar
+									%span.btn-group
+										- if i < @fila
+											= link_to "Tarde", "", class: "btn #{actual[0][:option_salida] == 1 ? 'btn-success' : 'btn-default' } disabled"
+											= link_to "Pasar", "", class: "btn #{actual[0][:option_salida] == 2 ? 'btn-success' : 'btn-default' } disabled"
+											= link_to "Anular", "", class: "btn #{actual[0][:option_salida] == 3 ? 'btn-success' : 'btn-default' } disabled"
+										- else
+											= link_to "Tarde", "", class: "btn btn-default disabled"
+											= link_to "Pasar", "", class: "btn btn-default disabled"
+											= link_to "Anular", "", class: "btn btn-default disabled"
+								- i = i + 1
 
 
 		

@@ -19,6 +19,10 @@ class Ability
         can [:add_superadmin_message], [Registro]
         can [:option_entrada_todos], [Registro]
         can [:option_salida_todos], [Registro]
+        can [:horario_area], [Inicio] 
+        can [:user_day], [Registro]
+        can [:option_entrada_user], [Registro]
+        can [:option_salida_user], [Registro]                        
     end
     if user.has_role? :admin
         can :manage, Inicio
@@ -29,11 +33,14 @@ class Ability
         can [:message], [Registro]
         can [:add_message], [Registro]
         can :manage, About
+        can [:horario_area], [Inicio] 
+        can [:user_day_registro], [Registro]
     end
            
     if user.has_role? :normal
         can :manage, Inicio  
-        can :manage, About              
+        can :manage, About
+        can [:horario_area], [Inicio]              
       #can :read, :all
       #can :index, Inicio
       #can :manage, About

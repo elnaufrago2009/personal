@@ -1,18 +1,30 @@
 .container
+	%ol.breadcrumb
+		%li= link_to "<span class='glyphicon glyphicon-home'></span> Tus Horarios".html_safe, inicios_path
+		%li.active 
+			%span.glyphicon.glyphicon-share-alt
+			Roles de Acceso
 	.page-header
-		%h1 Usuarios
-	%table.table
-		%tr
+		%h1 
+			Roles de Acceso
+			%small al sistema
+	%table.table.table-condensed.table-hover.table-bordered
+		%tr.well
+			%td Id
 			%th Nombres
 			%th Email
+			%th Area
 			%th Usuario
 			%th Admin
 			%th Superadmin
+		- i = @users.count
 		- @users.each do |user|
 			%tr
+				%td= i
 				%td
-					= user.first_name
-					= user.second_name
+					= user.first_name.capitalize + ','
+					= user.second_name.capitalize
+				%td= user.area.try(:name)
 				%td= user.email	
 				- normal = 0
 				- admin = 0
@@ -38,6 +50,7 @@
 					%td= link_to "Superadmin", quitar_assign_roles_path(:role_name => 'superadmin', :user_id => user.id), class: 'btn btn-primary'
 				- else
 					%td= link_to "Superadmin", asignar_assign_roles_path(:role_name => 'superadmin', :user_id => user.id), class: 'btn btn-default'
+			- i = i-1
 						
 
 							

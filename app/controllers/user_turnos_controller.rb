@@ -1,7 +1,7 @@
 class UserTurnosController < InheritedResources::Base
 	load_and_authorize_resource
 	def index
-		@users = User.all
+		@users = User.all.order('id Desc')
 	end
 
 	def asignar_turnos

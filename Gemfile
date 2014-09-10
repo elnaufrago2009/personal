@@ -35,6 +35,7 @@ gem 'inherited_resources'
 gem 'bootstrap-sass'
 gem 'rails_layout'
 gem 'bootstrap-datepicker-rails'
+gem "wice_grid", '3.4.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
