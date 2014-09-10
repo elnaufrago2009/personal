@@ -37,6 +37,7 @@ class RegistrosController < InheritedResources::Base
 		redirect_to registros_path
 	end
 
+
 	def option_salida
 		registro = Registro.find(params[:registro_id])
 		if registro.option_salida == params[:options].to_i
@@ -45,6 +46,26 @@ class RegistrosController < InheritedResources::Base
 			registro.update(:option_salida => params[:options])
 		end		
 		redirect_to registros_path
+	end
+
+	def option_entrada_todos
+		registro = Registro.find(params[:registro_id])
+		if registro.option_entrada == params[:options].to_i
+			registro.update(:option_entrada => 0)
+		else
+			registro.update(:option_entrada => params[:options])
+		end		
+		redirect_to todos_registros_path
+	end
+
+	def option_salida_todos
+		registro = Registro.find(params[:registro_id])
+		if registro.option_salida == params[:options].to_i
+			registro.update(:option_salida => 0)
+		else
+			registro.update(:option_salida => params[:options])
+		end		
+		redirect_to todos_registros_path
 	end
 
 	def todos

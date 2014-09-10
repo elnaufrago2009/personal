@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       post :add_message
       get :superadmin_message
       post :add_superadmin_message
+      get :option_salida_todos
+      get :option_entrada_todos
     }
   end
 

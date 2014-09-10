@@ -34,9 +34,9 @@
 							%td
 								.btn-toolbar
 									%span.btn-group
-										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_entrada_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_entrada==1 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_entrada_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_entrada==2 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_entrada_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_entrada==3 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_entrada==1 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_entrada==2 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_entrada==3 ? 'active' : '' }"
 					- elsif registro.register_turnos == 1
 						%tr
 							%td
@@ -59,9 +59,9 @@
 							%td
 								.btn-toolbar
 									%span.btn-group
-										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_entrada_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_entrada==1 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_entrada_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_entrada==2 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_entrada_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_entrada==3 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_entrada==1 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_entrada==2 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_entrada_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_entrada==3 ? 'active' : '' }"
 						%tr
 							%td
 								= registro.user.first_name
@@ -82,8 +82,8 @@
 							%td
 								.btn-toolbar
 									%span.btn-group
-										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_salida_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_salida==1 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_salida_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_salida==2 ? 'active' : '' }"
-										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_salida_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_salida==3 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-right'></span> Tarde".html_safe, option_salida_todos_registros_path(:registro_id => registro.id, :options => 1), class: "btn btn-success #{registro.option_salida==1 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-up'></span> Pasar".html_safe, option_salida_todos_registros_path(:registro_id => registro.id, :options => 2), class: "btn btn-success #{registro.option_salida==2 ? 'active' : '' }"
+										= link_to "<span class='glyphicon glyphicon-hand-down'></span> Anular".html_safe, option_salida_todos_registros_path(:registro_id => registro.id, :options => 3), class: "btn btn-success #{registro.option_salida==3 ? 'active' : '' }"
 		- else
 			%p Sin registros.!

@@ -17,6 +17,8 @@ class Ability
         can [:option_salida], [Registro]
         can [:superadmin_message], [Registro]
         can [:add_superadmin_message], [Registro]
+        can [:option_entrada_todos], [Registro]
+        can [:option_salida_todos], [Registro]
     end
     if user.has_role? :admin
         can :manage, Inicio
