@@ -73,7 +73,7 @@
 									- if i < @fila
 										- actual = Registro.where("user_id = ? AND turno_id = ? AND DATE(hora_entrada) = DATE(?)",turno.user.id, turno.turno.id, Date.today)
 										%button{:type => 'button', :class => 'btn btn-success', :disabled => 'disabled'}
-											= actual[0][:hora_salida].strftime('%I:%M %p')
+											= actual[0].try(:hora_salida).strftime('%I:%M %p')
 										- if actual[0][:salida_user_mensaje].blank?
 											= link_to "<span class='glyphicon glyphicon-envelope'></span>".html_safe, message_inicios_path(:registro_id => actual[0][:id], :paridad => 1), class: 'btn btn-default'
 										- else
